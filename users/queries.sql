@@ -18,11 +18,11 @@ limit 3;
 -- having count(worker.id) > 6
 
 
-WITH DepartmentAvgSalaries AS (SELECT department.id, AVG(worker.salary) AS avg_salary
+WITH DepartmentAvgSalaries AS (SELECT department.name, AVG(worker.salary) AS avg_salary
                                FROM worker
                                         join department on department.id = worker.department_id
                                GROUP BY department.id)
 
-SELECT id, avg_salary
+SELECT name, avg_salary
 FROM DepartmentAvgSalaries
 WHERE avg_salary = (SELECT max(avg_salary) FROM DepartmentAvgSalaries);
